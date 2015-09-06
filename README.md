@@ -1,6 +1,7 @@
 # gh-js
 
 First off, if you're looking for actually good libraries in Javascript (or any other languages, for that matter), please visit [here](https://developer.github.com/libraries/#javascript).
+
 Those wrappers are probably a lot better than mine will ever be.
 However, if you're looking for a simple client-side interface that won't give you too many nightmares and doesn't depend on any large libraries, free free to use this.
 
@@ -9,8 +10,11 @@ Now that that's over with, here's the rest of the readme.
 ## what is gh-js?
 
 gh-js is a simple wrapper for the GitHub API.
+
 It allows you to get information on a user, that user's repos, and a bit more.
+
 It can't edit files or do any fancy shenanigans like that. If you want to do that, please use one of the libraries [here](https://developer.github.com/libraries/#javascript).
+
 Sample usage cases would be showing off your top 3 starred repositories, 5 most recently updated repositories, or having a sort of "contact card" based on your Github profile.
 
 ## how do I get gh-js?
@@ -68,7 +72,7 @@ user.fill_repos(callback_repo);
 As with all network operations, a callback can be specified.
 
 Once the repositories of a user have been filled, you can call a very cool function called `list_repos`.
-`list_repos` takes 3 arguments, the number of repos to list (or some crazy high number to list them all) and the sort method (either SORT\_METHOD.RANDOM, SORT\_METHOD.STARS, or SORT\_METHOD.RECENT).
+`list_repos` takes 3 arguments, the number of repos to list (or some crazy high number to list them all) and the sort method (either `SORT_METHOD.RANDOM`, `SORT_METHOD.STARS`, or `SORT_METHOD.RECENT`).
 It returns an array of the GHrepo objects.
 
 For example, if I wanted to get the names of the 5 most recently updated repositories, I could set the `fill_repos` callback to be the following:
@@ -93,8 +97,6 @@ Afterwards, fill it with information:
 var callback = function () { alert("hi"); };
 bs.fill(callback);
 ```
-
-thanks for reading so far into the document :)
 
 ## documentation
 
@@ -173,7 +175,7 @@ Please feel free to do so.
 
 ## legal stuff
 
-Most of my stuff is MIT licensed (because MIT is cool \(^.^)/ )
+Most of my stuff is MIT licensed (because MIT is cool \\(^.^)/ )
 This is no exception.
 
 
