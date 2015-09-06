@@ -73,6 +73,7 @@ As with all network operations, a callback can be specified.
 Once the repositories of a user have been filled, you can call a very cool function called `list_repos`.
 
 `list_repos` takes 2 arguments:
+
 1. the number of repos to list (or some crazy high number to list them all)
 2. the sort method (either `SORT_METHOD.RANDOM`, `SORT_METHOD.STARS`, or `SORT_METHOD.RECENT`)
 
