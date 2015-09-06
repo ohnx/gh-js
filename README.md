@@ -21,8 +21,7 @@ Sample usage cases would be showing off your top 3 starred repositories, 5 most 
 
 Just put a script tag in your HTML file, like this:
 ```html
-Change this when pushing the project!
-<script src="gopher://jet-fuel-cant=melt-steel-beams/" />
+<script src="//cdn.rawgit.com/ohnx/gh-js/872304e3a7674317f1be489785fa63fe1afe2d26/gh.js" />
 ```
 
 As long as a modern browser is being used and JavaScript is enabled, everything should be good.
@@ -38,7 +37,7 @@ There are 3 objects that gh-js uses:
  - GHuser object (Stores info about a user)
  - GHrepo object (Stores info about a repo)
 
-Function calls in gh-js are all part of these two objects.
+Function calls in gh-js are all part of the last two objects.
 
 To start off with, you probably want to create a GHuser object:
 ```js
@@ -72,7 +71,11 @@ user.fill_repos(callback_repo);
 As with all network operations, a callback can be specified.
 
 Once the repositories of a user have been filled, you can call a very cool function called `list_repos`.
-`list_repos` takes 3 arguments, the number of repos to list (or some crazy high number to list them all) and the sort method (either `SORT_METHOD.RANDOM`, `SORT_METHOD.STARS`, or `SORT_METHOD.RECENT`).
+
+`list_repos` takes 2 arguments:
+1. the number of repos to list (or some crazy high number to list them all)
+2. the sort method (either `SORT_METHOD.RANDOM`, `SORT_METHOD.STARS`, or `SORT_METHOD.RECENT`)
+
 It returns an array of the GHrepo objects.
 
 For example, if I wanted to get the names of the 5 most recently updated repositories, I could set the `fill_repos` callback to be the following:
