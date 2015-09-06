@@ -21,7 +21,7 @@ Sample usage cases would be showing off your top 3 starred repositories, 5 most 
 
 Just put a script tag in your HTML file, like this:
 ```html
-<script src="//cdn.rawgit.com/ohnx/gh-js/872304e3a7674317f1be489785fa63fe1afe2d26/gh.js" />
+<script src="//cdn.rawgit.com/ohnx/gh-js/872304e3a7674317f1be489785fa63fe1afe2d26/gh.js"></script>
 ```
 
 As long as a modern browser is being used and JavaScript is enabled, everything should be good.
