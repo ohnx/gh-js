@@ -1,19 +1,12 @@
 # gh-js
 
-First off, if you're looking for actually good libraries in Javascript (or any other languages, for that matter), please visit [here](https://developer.github.com/libraries/#javascript).
-
-Those wrappers are probably a lot better than mine will ever be.
-However, if you're looking for a simple client-side interface that won't give you too many nightmares and doesn't depend on any large libraries, free free to use this.
-
-Now that that's over with, here's the rest of the readme.
-
 ## what is gh-js?
 
 gh-js is a simple wrapper for the GitHub API.
 
-It allows you to get information on a user, that user's repos, and a bit more.
+It allows you to get information on a user, that user's repos, and a bit more. The goal of gh-js is to be nightmare-free and have no dependencies (other than JavaScript and a modern browser).
 
-It can't edit files or do any fancy shenanigans like that. If you want to do that, please use one of the libraries [here](https://developer.github.com/libraries/#javascript).
+It can't edit files or do any fancy shenanigans that require logging in. If you want to do that, please use one of the libraries [here](https://developer.github.com/libraries/#javascript).
 
 Sample usage cases would be showing off your top 3 starred repositories, 5 most recently updated repositories, or having a sort of "contact card" based on your Github profile.
 
@@ -24,9 +17,7 @@ Just put a script tag in your HTML file, like this:
 <script src="//cdn.rawgit.com/ohnx/gh-js/872304e3a7674317f1be489785fa63fe1afe2d26/gh.js"></script>
 ```
 
-As long as a modern browser is being used and JavaScript is enabled, everything should be good.
-
-done! no nightmares! :)
+As long as a modern browser is being used and JavaScript is enabled, everything should work.
 
 ## how do I use gh-js?
 
@@ -45,7 +36,7 @@ var user = new GHuser("octocat");
 ```
 You will need to pass your username.
 
-Afterwards, fill in all the information!
+Afterwards, `fill` in all the information!
 ```js
 var callback = function () { alert("done!"); };
 user.fill(callback);
@@ -63,7 +54,8 @@ var callback = function () {
     elem.innerHTML += "<h2>" + user.username + "</h2>\n";
 };
 ```
-If you also want to get information on the repositories of a user, you're going to have to run another function:
+If you also want to get information on the repositories of a user, you're going to have to run another function 
+`fill_repos`:
 ```js
 var callback_repo = function () { alert("done!"); };
 user.fill_repos(callback_repo);
@@ -142,7 +134,7 @@ function GHrepo(fullname) {
     this.lang = null;           // Repo language
     // Note - In order to get the number of watchers, you will have to explicitly call this.fill()
     //        as the GitHub API doesn't actually return the number of watchers for some strange reason
-    //        see my paragraph in "GHuser.prototype.fill_repos" for more info
+    //        see my paragraph in "GHuser.prototype.fill_repos" (in gh.js) for more info
     this.watchers = 0;          // Watchers
     this.stars = 0;             // # of stars
     this.forks = 0;             // # of forks
@@ -176,6 +168,10 @@ Overall, the code \*should\* be (semi) commented. If you have any more issues, p
 
 ## contributing
 Please feel free to do so.
+
+## todo
+ - [ ] Gist support (anonymous new and view)
+ - [ ] array of issues for a repo?
 
 ## legal stuff
 
