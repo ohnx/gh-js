@@ -38,6 +38,3 @@ Please feel free to do so.
 
 Most of my stuff is MIT licensed (because MIT is cool \\(^.^)/ )
 This is no exception.
-
-
-This README is almost longer than all the code...
