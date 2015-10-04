@@ -38,6 +38,7 @@ function GHuser(username) {
     this.time = null;           // Update & create time
     this.filled = false;        // Was info filled?
     this.filled_repos = false;  // Were repos filled?
+    this.filled_gists = false;  // Were gists filled?
 }
 
 // GHrepo object
@@ -46,7 +47,7 @@ function GHrepo(fullname) {
     this.owner = null;          // Repo owner
     this.desc = null;           // Repo description
     this.url = null;            // URL to go to repository
-    this.time = null;           // Update & create time 
+    this.time = null;           // Update & create time
     this.is_fork = null;        // Is the repo a fork?
     this.lang = null;           // Repo language
     this.watchers = 0;          // Watchers
@@ -55,6 +56,25 @@ function GHrepo(fullname) {
     this.issues = 0;            // # of issues
     this.filled = false;        // Was basic info filled?
     this.filled_full = false;   // Was everything (including watchers) filled?
+}
+
+// GHgistfile object
+function GHgistfile(filename) {
+    this.name = filename;       // Filename
+    this.type = null;           // MIME type
+    this.lang = null;           // Language
+    this.url = null;            // raw URL
+}
+
+// GHgist object
+function GHgist(id) {
+    this.id = id;               // Gist ID
+    this.url = null;            // URL to gist
+    this.files = null;          // Array of files
+    this.time = null;           // Update & create time
+    this.description = null;    // Description
+    this.owner = null;          // Owner name
+    this.filled = false;        // Was basic info filled?
 }
 
 /*
@@ -104,6 +124,7 @@ GHuser.prototype.fill = function(callback) {
     xmlhttp.open("GET", "https://api.github.com/users/"+this.username, true);
     xmlhttp.send();
 };
+
 // GHuser fill repo info
 GHuser.prototype.fill_repos = function(callback) {
     var xmlhttp = new XMLHttpRequest();
@@ -121,7 +142,7 @@ GHuser.prototype.fill_repos = function(callback) {
                 self.repos[i].owner = jresp[i].owner.login;             // Repo owner
                 self.repos[i].desc = jresp[i].description;              // Repo description
                 self.repos[i].url = jresp[i].html_url;                  // URL to go to repository
-                // I have no idea what updated_at is, but it sure as 4311 ain't the last time the code was changed.
+                // I have no idea what updated_at is, but it sure ain't the last time the code was changed.
                 self.repos[i].time = new GHtime(jresp[i].created_at, jresp[i].pushed_at);
                 self.repos[i].is_fork = jresp[i].fork;                  // Is the repo a fork?
                 self.repos[i].lang = jresp[i].language;                 // Repo language
@@ -141,6 +162,36 @@ GHuser.prototype.fill_repos = function(callback) {
     };
     // send HTTP request async
     xmlhttp.open("GET", "https://api.github.com/users/"+this.username+"/repos", true);
+    xmlhttp.send();
+};
+
+// GHuser fill in gist info
+GHuser.prototype.fill_gists = function(callback) {
+    var xmlhttp = new XMLHttpRequest();
+    var self = this;
+    if(callback == null) {
+        callback = function () {};
+    }
+    // callback function
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+            var jresp = JSON.parse(xmlhttp.responseText);
+            self.gists = new Array(jresp.length);
+            for(var i = 0; i < jresp.length; i++) {
+                self.gists[i] = new GHgist(jresp[i].id);            // Gist ID
+                self.gists[i].url = jresp[i].html_url;              // URL to gist
+                self.gists[i].files = make_gf_array(jresp[i].files);// Array of files
+                self.gists[i].time = new GHtime(jresp[i].created_at, jresp[i].updated_at);
+                self.gists[i].description = jresp[i].description;   // Description
+                self.gists[i].owner = jresp[i].owner.login;         // Owner name
+                self.gists[i].filled = true;                        // Was basic info filled?
+            }
+            self.filled_gists = true;
+            callback();
+        }
+    };
+    // send HTTP request async
+    xmlhttp.open("GET", "https://api.github.com/users/"+this.username+"/gists", true);
     xmlhttp.send();
 };
 
@@ -213,3 +264,24 @@ GHrepo.prototype.fill = function(callback) {
     xmlhttp.send();
 };
 
+/*
+ * misc function declarations
+ */
+// Why on earth is this function needed?
+// Well, GitHub returns an Object instead of an Array for the files in a gist.
+// This function unwraps that object to create an array instead.
+// It also changes gistfile type object too, while its at it.
+function make_gf_array(gfobj) {
+    var gf_array = new Array();
+    for (var i in gfobj) {
+        if (!gfobj.hasOwnProperty(i)) break;
+        // get the actual value of i, not just the key value
+        i = gfobj[i];
+        var gf_temp = new GHgistfile(i.filename);
+        gf_temp.type = i.type;          // MIME type
+        gf_temp.lang = i.language;      // Language
+        gf_temp.url = i.raw_url;        // URL
+        gf_array.push(gf_temp);
+    }
+    return gf_array;
+}
