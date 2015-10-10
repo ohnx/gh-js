@@ -241,7 +241,7 @@ GHrepo.prototype.fill = function(callback) {
     }
     // callback function
     xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState==3 && xmlhttp.status==200) {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
             var jresp = JSON.parse(xmlhttp.responseText);
             self.owner = jresp.owner.login;             // Repo owner
             self.desc = jresp.description;              // Repo description
@@ -270,7 +270,7 @@ GHrepo.prototype.fill = function(callback) {
 // Why on earth is this function needed?
 // Well, GitHub returns an Object instead of an Array for the files in a gist.
 // This function unwraps that object to create an array instead.
-// It also changes gistfile type object too, while its at it.
+// It also converts the objects to a custom type gistfile while its at it.
 function make_gf_array(gfobj) {
     var gf_array = new Array();
     for (var i in gfobj) {

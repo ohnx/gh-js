@@ -9,7 +9,7 @@ There are 3 objects that gh-js uses:
 
 Function calls in gh-js are all part of the last two objects.
 
-##starting off
+## starting off
 
 To start off with, you probably want to create a GHuser object:
 ```js
@@ -71,7 +71,13 @@ var bs = new GHrepo("twbs/bootstrap");
 ```
 Afterwards, fill it with information:
 ```js
-var callback = function () {};
+var callback = function () {
+    var elem = document.getElementById("bs_repo");
+    elem.innerHTML = "<h1>" + bs.name + "</h1>\n";
+    elem.innerHTML += bs.desc + "<br />\n";
+    elem.innerHTML += "Watchers: " + bs.watchers + "<br />\n";
+    elem.innerHTML += "Stars: " + bs.stars + "<br />\n";
+};
 bs.fill(callback);
 ```
 
@@ -146,7 +152,7 @@ function GHgist(id) {
 }
 ```
 
-Here are the functions (with comments describing what they do):
+Here are the functions that you'll probably want to use (with comments describing what they do):
 ```js
 // GHuser fill in user info
 // Network operation, so there is a callback.
@@ -155,6 +161,10 @@ GHuser.prototype.fill = function(callback);
 // GHuser fill in repo info
 // Network operation, so there is a callback.
 GHuser.prototype.fill_repos = function(callback);
+
+// GHuser fill in gist info
+// Network operation, so there is a callback.
+GHuser.prototype.fill_gists = function(callback);
 
 // GHuser list repos
 // Pass a maximum number of repositories to return (will return all repositories if max > # of repos user has)
