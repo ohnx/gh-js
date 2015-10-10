@@ -16,7 +16,7 @@ I personally use it on my site to list the most recent repositories I've worked 
 
 Just put a script tag in your HTML file, like this:
 ```html
-<script src="//cdn.rawgit.com/ohnx/gh-js/872304e3a7674317f1be489785fa63fe1afe2d26/gh.js"></script>
+<script src="//cdn.rawgit.com/ohnx/gh-js/cb349ac4645030f5cb14365f580d5a1a089fe8e3/gh.js"></script>
 ```
 
 As long as a modern-ish browser is being used and JavaScript is enabled, everything should work.
@@ -92,6 +92,3 @@ Please feel free to do so.
 
 Most of my stuff is MIT licensed (because MIT is cool \\(^.^)/ )
 This is no exception.
-
-
-This README is almost longer than all the code...
